@@ -45,17 +45,41 @@ class UserInput extends React.Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-                    <label className="sortBy">
-                        Sort by:
-                        <input value="search" name="sort_by" type="radio" defaultChecked/>
-                        Relevance
-                        <input value="search_by_date" name="sort_by" type="radio"/>
-                        Date
+                    <label className="searchTerm">
+                        Search
+                        <input type="text" name="search_term"/>
                     </label>
                     <br/>
-                    <label className="searchTerm">
-                        Search term
-                        <input type="text" name="search_term"/>
+                    <label>
+                        With tags:
+                        <select>
+                            <option defaultValue value=""></option>
+                            <option value="story">Story</option>
+                            <option value="comment">Comment</option>
+                            <option value="poll">Poll</option>
+                            <option value="pollopt">Poll Opt</option>
+                            <option value="show_hn">Show HN</option>
+                            <option value="ask_hn">Ask HN</option>
+                            <option value="front_page">Front Page</option>
+                        </select>
+                    </label>
+                    <br/>
+                    <label>
+                        And filters: 
+                        <select>
+                            <option defaultValue value=""></option>
+                            <option value="created_at_i">Created at i:</option>
+                            <option value="points">Points:</option>
+                            <option value="num_comments">Number of comments:</option>
+                        </select>
+                    </label>
+                    <br/>
+                    <label className="sortBy">
+                        Sorted by:
+                        <input value="search" name="sort_by" type="radio" defaultChecked/>
+                        Popularity
+                        <input value="search_by_date" name="sort_by" type="radio"/>
+                        Date
                     </label>
                     <br/>
                     <label className="submit">
