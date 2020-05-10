@@ -6,19 +6,24 @@ class UserInput extends React.Component {
         super(props);
 
         this.state = {
-            search_term: '',
+            query: '',
             sort_by: 'search',
             tags: '',
-            search_results: []
+            search_results: [],
+            num_comments: '',
+            points: ''
         }
     }
 
-    getSearchResults = (sort_by, search_term, tags) => { // Should I move this to an actions folder?
+    getSearchResults = (sort_by, query, tags, num_comments, points) => { // Should I move this to an actions folder?
         // Gets search results based on input search term.
         let url = 'http://hn.algolia.com/api/v1/' 
                 + sort_by
-                + `?query=${search_term}`
-                + `&tags=${tags}`; // This has to work with multiple tags AND/OR-ing
+                + `?query=${query}`
+                + `&tags=${tags}`
+                + `&num_comments=${num_comments}`
+                + `&points=${points}`; 
+                // This has to work with multiple tags AND/OR-ing
                 // What other params should I have?
                 // Make sure this is error-free.
 
@@ -37,7 +42,7 @@ class UserInput extends React.Component {
 
     handleSubmit = (event) => { // Clean this up.
         event.preventDefault();
-        this.getSearchResults(this.state.sort_by, this.state.search_term, this.state.tags);
+        this.getSearchResults(this.state.sort_by, this.state.query, this.state.tags);
     }
 
     handleChange = (event) => {
@@ -52,12 +57,12 @@ class UserInput extends React.Component {
                 <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
                     <label className="searchTerm">
                         Search
-                        <input type="text" name="search_term"/>
+                        <input type="text" name="query"/>
                     </label>
                     <br/>
                     <label>
                         With tags:
-                        <select>
+                        <select onChange={this.handleChange} name="tags">
                             <option defaultValue value=""></option>
                             <option value="story">Story</option>
                             <option value="comment">Comment</option>
@@ -69,16 +74,39 @@ class UserInput extends React.Component {
                         </select>
                     </label>
                     <br/>
+
+
+
                     <label>
-                        And filters: 
-                        <select>
+                        Comments:   
+                        <select onChange={this.handleChange} name="num_comments">
                             <option defaultValue value=""></option>
-                            <option value="created_at_i">Created at i:</option>
-                            <option value="points">Points:</option>
-                            <option value="num_comments">Number of comments:</option>
+                            <option value="XXX">0-10</option>
+                            <option value="XXX">10-50</option>
+                            <option value="XXX">50-100</option>
+                            <option value="XXX">100-200</option>
+                            <option value="XXX">200-500</option>
+                            <option value="XXX">500+</option>
                         </select>
                     </label>
                     <br/>
+                    <label>
+                        Points:   
+                        <select onChange={this.handleChange} name="points">
+                            <option defaultValue value=""></option>
+                            <option value="XXX">0-10</option>
+                            <option value="XXX">10-50</option>
+                            <option value="XXX">50-100</option>
+                            <option value="XXX">100-200</option>
+                            <option value="XXX">200-500</option>
+                            <option value="XXX">500+</option>
+                        </select>
+                    </label>
+                    <br/>
+
+
+
+
                     <label className="sortBy">
                         Sorted by:
                         <input value="search" name="sort_by" type="radio" defaultChecked/>
