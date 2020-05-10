@@ -28,7 +28,6 @@ class UserInput extends React.Component {
             this.setState({
                 search_results: data.hits
             })
-            console.log(data)
             console.log(data.hits)
         })
         .catch((error) => {
@@ -36,7 +35,7 @@ class UserInput extends React.Component {
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = (event) => { // Clean this up.
         event.preventDefault();
         this.getSearchResults(this.state.sort_by, this.state.search_term, this.state.tags);
     }
