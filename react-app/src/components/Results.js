@@ -14,12 +14,22 @@ class Results extends React.Component{ // Decide how many results to display.
         let results = this.props.search_results.slice(0, this.state.num_to_display);
         console.log(results)
         // Check this whole function for errors and edge cases! What if no titles? 
+        // Add time elapsed since created?
         return (
             <ul>
                 {results.map((item, i) => (
                     <li key={i}>
-                        {item.title}
+                        <b>{item.title}</b>
+                        <br/>
+                        <u>{item.url}</u>
+                        <br/>
+                        Author: {item.author}
+                        <br/>
+                        Comments: {item.num_comments}
+                        <br/>
+                        Points: {item.points}
                         <br/> 
+                        <br/>
                     </li>
                 ))}
             </ul>
