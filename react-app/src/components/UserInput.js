@@ -1,82 +1,71 @@
 import React from 'react';
-import Results from './Results';
+import { Results } from './Results';
+import { getSearchResults } from '../helperFunctions/getSearchResults.js';
 
-class UserInput extends React.Component {
+export class UserInput extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            query: '',
-            sort_by: 'search',
-            tags: '',
-            search_results: [],
-            num_comments: 'num_comments>=0',
-            points: 'points>=0'
+            searchTerms: {
+                query: '',
+                tags: '',
+                numComments: 'num_comments>=0',
+                points: 'points>=0',
+                sortBy: 'search'
+            },
+            searchResults: []
         }
     }
 
-    getSearchResults = (sort_by, query, tags, num_comments, points) => { // Should I move this to an actions folder?
-        // Gets search results based on input search term.
-        let url = 'http://hn.algolia.com/api/v1/' 
-                + sort_by
-                + `?query=${query}`
-                + `&tags=${tags}`
-                + `&numericFilters=${num_comments},${points}`; 
-                // This has to work with multiple tags AND/OR-ing
-                // What other params should I have?
-                // Make sure this is error-free.
-                console.log(url)
+    handleSubmit = (searchForm) => {
+        searchForm.preventDefault();
 
-        fetch(url)
-        .then((response) => (response.json()))
-        .then((data) => {
+        getSearchResults(this.state.searchTerms).then((results) => {
             this.setState({
-                search_results: data.hits
+                searchResults: results
             })
-            console.log(data.hits)
-        })
-        .catch((error) => {
-            console.log(error);
         })
     }
 
-    handleSubmit = (event) => { // Clean this up.
-        event.preventDefault();
-        this.getSearchResults(this.state.sort_by, this.state.query, this.state.tags, this.state.num_comments, this.state.points);
-    }
+    handleChange = (searchForm) => {
+        let newSearchTerms = this.state.searchTerms
+        newSearchTerms[searchForm.target.name] = searchForm.target.value;
 
-    handleChange = (event) => {
         this.setState({
-            [event.target.name]: event.target.value
+            searchTerms: newSearchTerms
         })
     }
 
     render() {
         return (
             <div>
+                {/* Search form */}
                 <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-                    <label className="searchTerm">
+                    <label>
                         Search
                         <input type="text" name="query"/>
                     </label>
                     <br/>
+                    {/* Tags dropdown menu */}
                     <label>
                         With tags:
                         <select onChange={this.handleChange} name="tags">
                             <option defaultValue value=""></option>
                             <option value="story">Story</option>
-                            <option value="comment">Comment</option>
+                            {/* <option value="comment">Comment</option> */}
                             <option value="poll">Poll</option>
-                            <option value="pollopt">Poll Opt</option>
+                            {/* <option value="pollopt">Poll Opt</option> */}
                             <option value="show_hn">Show HN</option>
                             <option value="ask_hn">Ask HN</option>
                             <option value="front_page">Front Page</option>
                         </select>
                     </label>
                     <br/>
+                    {/* Number of comments dropdown menu. */}
                     <label>
                         Comments:   
-                        <select onChange={this.handleChange} name="num_comments">
+                        <select onChange={this.handleChange} name="numComments">
                             <option defaultValue value="num_comments>=0"></option>
                             <option value="num_comments<=10">0-10</option>
                             <option value="num_comments>=10,num_comments<=50">10-50</option>
@@ -87,6 +76,7 @@ class UserInput extends React.Component {
                         </select>
                     </label>
                     <br/>
+                    {/* Number of points dropdown menu. */}
                     <label>
                         Points:   
                         <select onChange={this.handleChange} name="points">
@@ -100,11 +90,12 @@ class UserInput extends React.Component {
                         </select>
                     </label>
                     <br/>
+                    {/* Radio buttons to choose how to sort results. */}
                     <label className="sortBy">
                         Sorted by:
-                        <input value="search" name="sort_by" type="radio" defaultChecked/>
+                        <input value="search" name="sortBy" type="radio" defaultChecked/>
                         Popularity
-                        <input value="search_by_date" name="sort_by" type="radio"/>
+                        <input value="search_by_date" name="sortBy" type="radio"/>
                         Date
                     </label>
                     <br/>
@@ -112,10 +103,10 @@ class UserInput extends React.Component {
                         <input type="submit" value="Search"/>
                     </label>
                 </form>
-                <Results search_results={this.state.search_results}/>
+                <div>
+                    <Results searchResults={this.state.searchResults} />
+                </div>
             </div>
         )
     }
 }
-
-export default UserInput;
