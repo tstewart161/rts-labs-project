@@ -10,8 +10,8 @@ class UserInput extends React.Component {
             sort_by: 'search',
             tags: '',
             search_results: [],
-            num_comments: '',
-            points: ''
+            num_comments: 'num_comments>=0',
+            points: 'points>=0'
         }
     }
 
@@ -21,11 +21,11 @@ class UserInput extends React.Component {
                 + sort_by
                 + `?query=${query}`
                 + `&tags=${tags}`
-                + `&num_comments=${num_comments}`
-                + `&points=${points}`; 
+                + `&numericFilters=${num_comments},${points}`; 
                 // This has to work with multiple tags AND/OR-ing
                 // What other params should I have?
                 // Make sure this is error-free.
+                console.log(url)
 
         fetch(url)
         .then((response) => (response.json()))
@@ -42,7 +42,7 @@ class UserInput extends React.Component {
 
     handleSubmit = (event) => { // Clean this up.
         event.preventDefault();
-        this.getSearchResults(this.state.sort_by, this.state.query, this.state.tags);
+        this.getSearchResults(this.state.sort_by, this.state.query, this.state.tags, this.state.num_comments, this.state.points);
     }
 
     handleChange = (event) => {
@@ -74,39 +74,32 @@ class UserInput extends React.Component {
                         </select>
                     </label>
                     <br/>
-
-
-
                     <label>
                         Comments:   
                         <select onChange={this.handleChange} name="num_comments">
-                            <option defaultValue value=""></option>
-                            <option value="XXX">0-10</option>
-                            <option value="XXX">10-50</option>
-                            <option value="XXX">50-100</option>
-                            <option value="XXX">100-200</option>
-                            <option value="XXX">200-500</option>
-                            <option value="XXX">500+</option>
+                            <option defaultValue value="num_comments>=0"></option>
+                            <option value="num_comments<=10">0-10</option>
+                            <option value="num_comments>=10,num_comments<=50">10-50</option>
+                            <option value="num_comments>=50,num_comments<=100">50-100</option>
+                            <option value="num_comments>=100,num_comments<=200">100-200</option>
+                            <option value="num_comments>=200,num_comments<=500">200-500</option>
+                            <option value="num_comments>=500">500+</option>
                         </select>
                     </label>
                     <br/>
                     <label>
                         Points:   
                         <select onChange={this.handleChange} name="points">
-                            <option defaultValue value=""></option>
-                            <option value="XXX">0-10</option>
-                            <option value="XXX">10-50</option>
-                            <option value="XXX">50-100</option>
-                            <option value="XXX">100-200</option>
-                            <option value="XXX">200-500</option>
-                            <option value="XXX">500+</option>
+                            <option defaultValue value="points>=0"></option>
+                            <option value="points>=0,points<=10">0-10</option>
+                            <option value="points>=10,points<=50">10-50</option>
+                            <option value="points>=50,points<=100">50-100</option>
+                            <option value="points>=100,points<=200">100-200</option>
+                            <option value="points>=200,points<=500">200-500</option>
+                            <option value="points>=500">500+</option>
                         </select>
                     </label>
                     <br/>
-
-
-
-
                     <label className="sortBy">
                         Sorted by:
                         <input value="search" name="sort_by" type="radio" defaultChecked/>
