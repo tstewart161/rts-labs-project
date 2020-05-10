@@ -24,13 +24,18 @@ class UserInput extends React.Component {
 
         fetch(url)
         .then((response) => (response.json()))
-        .then((data) => console.log(data))
+        .then((data) => {
+            this.setState({
+                search_results: data.hits
+            })
+            console.log(data.hits)
+        })
         .catch((error) => {
             console.log(error);
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = (event) => { // Clean this up.
         event.preventDefault();
         this.getSearchResults(this.state.sort_by, this.state.search_term, this.state.tags);
     }
