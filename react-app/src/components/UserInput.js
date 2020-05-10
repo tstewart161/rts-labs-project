@@ -1,53 +1,61 @@
 import React from 'react';
 import Results from './Results';
+import { getSearchResults } from '../helperFunctions/getSearchResults';
 
 class UserInput extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            query: '',
+            search_terms: {
+                query: '',
+                tags: '',
+                num_comments: 'num_comments>=0',
+                points: 'points>=0'
+            },
             sort_by: 'search',
-            tags: '',
-            search_results: [],
-            num_comments: 'num_comments>=0',
-            points: 'points>=0'
+            search_results: []
         }
     }
 
-    getSearchResults = (sort_by, query, tags, num_comments, points) => { // Should I move this to an actions folder?
-        // Gets search results based on input search term.
-        let url = 'http://hn.algolia.com/api/v1/' 
-                + sort_by
-                + `?query=${query}`
-                + `&tags=${tags}`
-                + `&numericFilters=${num_comments},${points}`; 
-                // This has to work with multiple tags AND/OR-ing
-                // What other params should I have?
-                // Make sure this is error-free.
-                console.log(url)
+    // getSearchResults = (search_terms, sort_by) => { // Should I move this to an actions folder?
+    //     // Gets search results based on input search term.
+    //     let url = 'http://hn.algolia.com/api/v1/' 
+    //             + sort_by
+    //             + `?query=${search_terms.query}`
+    //             + `&tags=${search_terms.tags}`
+    //             + `&numericFilters=${search_terms.num_comments},${search_terms.points}`
+    //             + `&hitsPerPage=50`; 
+    //             // This has to work with multiple tags AND/OR-ing?
+    //             // What other params should I have?
+    //             // Make sure this is error-free.
+    //     fetch(url)
+    //     .then((response) => (response.json()))
+    //     .then((data) => {
+    //         this.setState({
+    //             search_results: data.hits
+    //         })
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
 
-        fetch(url)
-        .then((response) => (response.json()))
-        .then((data) => {
-            this.setState({
-                search_results: data.hits
-            })
-            console.log(data.hits)
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
-
-    handleSubmit = (event) => { // Clean this up.
+    handleSubmit = (event) => {
         event.preventDefault();
-        this.getSearchResults(this.state.sort_by, this.state.query, this.state.tags, this.state.num_comments, this.state.points);
+        getSearchResults(this.state.search_terms, this.state.sort_by).then((results) => {
+            this.setState({
+                search_results: results
+            })
+        })
     }
 
     handleChange = (event) => {
+        let new_search_terms = this.state.search_terms
+        new_search_terms[event.target.name] = event.target.value;
+
         this.setState({
-            [event.target.name]: event.target.value
+            search_terms: new_search_terms
         })
     }
 
@@ -65,9 +73,9 @@ class UserInput extends React.Component {
                         <select onChange={this.handleChange} name="tags">
                             <option defaultValue value=""></option>
                             <option value="story">Story</option>
-                            <option value="comment">Comment</option>
+                            {/* <option value="comment">Comment</option> */}
                             <option value="poll">Poll</option>
-                            <option value="pollopt">Poll Opt</option>
+                            {/* <option value="pollopt">Poll Opt</option> */}
                             <option value="show_hn">Show HN</option>
                             <option value="ask_hn">Ask HN</option>
                             <option value="front_page">Front Page</option>
@@ -112,7 +120,7 @@ class UserInput extends React.Component {
                         <input type="submit" value="Search"/>
                     </label>
                 </form>
-                <Results search_results={this.state.search_results}/>
+                <Results searchResults={this.state.search_results} />
             </div>
         )
     }

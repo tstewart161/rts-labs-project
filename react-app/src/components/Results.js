@@ -10,9 +10,8 @@ class Results extends React.Component{ // Decide how many results to display.
         }
     }
     
-    createResultsList = () => {
-        let results = this.props.search_results.slice(0, this.state.num_to_display);
-        console.log(results)
+    createResultsList = (search_results) => {
+        let results = search_results.slice(0, this.state.num_to_display);
         // Check this whole function for errors and edge cases! What if no titles? 
         // Add time elapsed since created?
         return (
@@ -47,14 +46,14 @@ class Results extends React.Component{ // Decide how many results to display.
             <div>
                 <div>
                     How many results to display: // May need to move this to UserInput
-                    <select onChange={this.handleChange}>
-                        <option defaultValue value="10">10</option>
+                    <select defaultValue="10" onChange={this.handleChange}>
                         <option value="5">5</option>
+                        <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
                     </select>
                 </div>
-                {this.createResultsList()}
+                {this.createResultsList(this.props.searchResults)}
             </div>
         )
     }
