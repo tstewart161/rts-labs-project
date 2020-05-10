@@ -1,8 +1,7 @@
 import React from 'react';
-import { createResultsList } from '../helperFunctions/createResultsList';
+import { createResultsList } from '../helperFunctions/createResultsList.js';
 
-class Results extends React.Component{ // Decide how many results to display.
-    
+export class Results extends React.Component{
     constructor(props) {
         super(props);
 
@@ -11,9 +10,9 @@ class Results extends React.Component{ // Decide how many results to display.
         }
     }
 
-    handleChange = (event) => {
+    handleChange = (numToDisplayDropdown) => {
         this.setState({
-            numToDisplay: event.target.value
+            numToDisplay: numToDisplayDropdown.target.value
         })
     }
     
@@ -21,7 +20,7 @@ class Results extends React.Component{ // Decide how many results to display.
         return (
             <div>
                 <div>
-                    How many results to display: // May need to move this to UserInput
+                    How many results to display:
                     <select defaultValue="10" onChange={this.handleChange}>
                         <option value="5">5</option>
                         <option value="10">10</option>
@@ -29,10 +28,10 @@ class Results extends React.Component{ // Decide how many results to display.
                         <option value="50">50</option>
                     </select>
                 </div>
-                {createResultsList(this.props.searchResults, this.state.numToDisplay)}
+                <div>
+                    {createResultsList(this.props.searchResults, this.state.numToDisplay)}
+                </div>
             </div>
         )
     }
 }
-
-export default Results

@@ -2,7 +2,7 @@ import React from 'react';
 
 export function createResultsList(searchResults, numToDisplay) {
     let results = searchResults.slice(0, numToDisplay);
-    // Check this whole function for errors and edge cases! What if no titles? 
+    // Check this whole function for errors and edge cases! What if no titles? Error catching and logging.
     // Add time elapsed since created?
     return (
         <ul>

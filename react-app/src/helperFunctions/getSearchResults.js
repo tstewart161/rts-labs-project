@@ -7,6 +7,7 @@ export function getSearchResults(searchTerms) {
             + `&hitsPerPage=50`; 
             // This has to work with multiple tags AND/OR-ing?
             // Make sure this is error-free.
+            // More error catching and logging?
     return fetch(url)
     .then((response) => (response.json()))
     .then((data) => {
