@@ -15,25 +15,22 @@ const initialState = {
 }
 
 function reducer(state = initialState, action) {
-  console.log(action)
-  switch (action.type) {
-    case "INCREMENT":
-      return {
-        searchTerms: {
-          query: 'hello',
-          tags: '',
-          numComments: 'num_comments>=0',
-          points: 'points>=0',
-          sortBy: 'search'
-        }
-      }
+  switch(action.type) {
+    // case "INPUT": 
+    //   let newSearchTerms = action.payload;
+    //   return {
+    //     searchTerms: newSearchTerms
+    //   }
     default:
       return state;
   }
 }
 
 const store = createStore(reducer);
-store.dispatch({ type: "INCREMENT" })
+store.dispatch({
+  type: "INPUT",
+  payload: {}
+})
 
 function App() {
   return (

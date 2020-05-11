@@ -4,39 +4,38 @@ import { getSearchResults } from '../helperFunctions/getSearchResults.js';
 import { connect } from 'react-redux';
 
 class UserInput extends React.Component {
-    // constructor(props) {
-    //     super(props);
+    constructor(props) {
+        super(props);
 
-    //     this.state = {
-    //         searchTerms: {
-    //             query: '',
-    //             tags: '',
-    //             numComments: 'num_comments>=0',
-    //             points: 'points>=0',
-    //             sortBy: 'search'
-    //         },
-    //         searchResults: []
-    //     }
-    // }
+        this.state = {
+            // searchTerms: {
+            //     query: '',
+            //     tags: '',
+            //     numComments: 'num_comments>=0',
+            //     points: 'points>=0',
+            //     sortBy: 'search'
+            // },
+            searchResults: []
+        }
+    }
 
     handleSubmit = (searchForm) => {
         searchForm.preventDefault();
 
-        // props
         getSearchResults(this.props.searchTerms).then((results) => {
-            // this.setState({
-            //     searchResults: results
-            // })
+            this.setState({
+                searchResults: results
+            })
         })
     }
 
     handleChange = (searchForm) => {
         let newSearchTerms = this.props.searchTerms // props
         newSearchTerms[searchForm.target.name] = searchForm.target.value;
+        console.log(this.props.searchTerms)
 
-        // this.setState({
-        //     searchTerms: newSearchTerms
-        // })
+        // // Update the redux state with the new search terms.
+        // // this.props.dispatch({ type: "INPUT", payload: newSearchTerms });
     }
 
     render() {
@@ -106,7 +105,7 @@ class UserInput extends React.Component {
                     </label>
                 </form>
                 <div>
-                    <Results searchResults={this.props.searchResults} /> {/* props */} 
+                    <Results searchResults={this.state.searchResults} /> {/* props */} 
                 </div>
             </div>
         )
