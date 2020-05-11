@@ -1,6 +1,9 @@
 import React from 'react';
 
 export function createResultsList(searchResults, numToDisplay) {
+    if (typeof searchResults === 'undefined') {
+        searchResults = []; // Should I return an empty array?
+    }
     let results = searchResults.slice(0, numToDisplay);
     // Check this whole function for errors and edge cases! What if no titles? Error catching and logging.
     // Add time elapsed since created?

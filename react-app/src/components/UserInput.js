@@ -1,40 +1,42 @@
 import React from 'react';
-import { Results } from './Results';
+import Results from './Results';
 import { getSearchResults } from '../helperFunctions/getSearchResults.js';
+import { connect } from 'react-redux';
 
-export class UserInput extends React.Component {
-    constructor(props) {
-        super(props);
+class UserInput extends React.Component {
+    // constructor(props) {
+    //     super(props);
 
-        this.state = {
-            searchTerms: {
-                query: '',
-                tags: '',
-                numComments: 'num_comments>=0',
-                points: 'points>=0',
-                sortBy: 'search'
-            },
-            searchResults: []
-        }
-    }
+    //     this.state = {
+    //         searchTerms: {
+    //             query: '',
+    //             tags: '',
+    //             numComments: 'num_comments>=0',
+    //             points: 'points>=0',
+    //             sortBy: 'search'
+    //         },
+    //         searchResults: []
+    //     }
+    // }
 
     handleSubmit = (searchForm) => {
         searchForm.preventDefault();
 
-        getSearchResults(this.state.searchTerms).then((results) => {
-            this.setState({
-                searchResults: results
-            })
+        // props
+        getSearchResults(this.props.searchTerms).then((results) => {
+            // this.setState({
+            //     searchResults: results
+            // })
         })
     }
 
     handleChange = (searchForm) => {
-        let newSearchTerms = this.state.searchTerms
+        let newSearchTerms = this.props.searchTerms // props
         newSearchTerms[searchForm.target.name] = searchForm.target.value;
 
-        this.setState({
-            searchTerms: newSearchTerms
-        })
+        // this.setState({
+        //     searchTerms: newSearchTerms
+        // })
     }
 
     render() {
@@ -104,9 +106,15 @@ export class UserInput extends React.Component {
                     </label>
                 </form>
                 <div>
-                    <Results searchResults={this.state.searchResults} />
+                    <Results searchResults={this.props.searchResults} /> {/* props */} 
                 </div>
             </div>
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    searchTerms: state.searchTerms
+});
+
+export default connect(mapStateToProps)(UserInput);
