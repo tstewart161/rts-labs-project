@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function displayElement(element, elementType) {
-    if (element !== "" && element !== null) {
-        return <>{element}</>
+export function displayElement(element, elementName) {
+    if (element !== null && element !== "") {
+        return (<>{element}</>); // Don't need to render a new DOM element, just return to parent.
     } else {
-        return `No ${elementType} for this post`
+        return `No ${elementName} for this post`;
     }
 }

@@ -1,48 +1,18 @@
 import React from 'react';
 import './App.css';
-import UserInput from './components/UserInput.js';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-
-const initialState = {
-  searchTerms: {
-    query: '',
-    tags: '',
-    numComments: 'num_comments>=0',
-    points: 'points>=0',
-    sortBy: 'search'
-  }
-}
-
-function reducer(state = initialState, action) {
-  switch(action.type) {
-    case "INPUT": 
-      let newSearchTerms = action.searchTerms;
-      return {
-        searchTerms: newSearchTerms
-      }
-    default:
-      return state;
-  }
-}
-
-const store = createStore(reducer);
-store.dispatch({
-  type: "INPUT",
-  searchTerms: {
-    query: '',
-    tags: '',
-    numComments: 'num_comments>=0',
-    points: 'points>=0',
-    sortBy: 'search'
-  }
-})
+import { store } from './redux/store.js';
+import { Welcome } from './components/Welcome';
+import Search from './components/Search.js';
 
 function App() {
   return (
     <div className="App">
+      <div>
+        <Welcome />
+      </div>
       <Provider store={store}>
-        <UserInput searchTerms={{
+        <Search searchTerms={{
           query: '',
           tags: '',
           numComments: 'num_comments>=0',
