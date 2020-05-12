@@ -1,6 +1,15 @@
 form {
     display: flex;
     flex-direction: row;
-    width: 50%;
+    width: 60%;
     margin: 0 auto;
+}
+
+label {
+    margin: 0 1rem 0 1rem;
+}
+
+.sortBy {
+    display: flex;
+    flex-direction: row;
 }

@@ -1,0 +1,11 @@
+p {
+    /* margin: 2rem 20rem 2rem 20rem; */
+    max-width: 60%;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+img {
+    margin: -3rem 0 -2rem 0;
+    max-height: 10rem;
+}

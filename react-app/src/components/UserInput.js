@@ -16,7 +16,6 @@ class UserInput extends React.Component {
 
     handleSubmit = (searchForm) => {
         searchForm.preventDefault();
-
         getSearchResults(this.props.searchTerms).then((results) => {
             this.setState({
                 searchResults: results
@@ -27,7 +26,6 @@ class UserInput extends React.Component {
     handleChange = (searchForm) => {
         let newSearchTerms = Object.assign({}, this.props.searchTerms); // Don't mutate props!
         newSearchTerms[searchForm.target.name] = searchForm.target.value;
-
         this.props.dispatch({ type: "INPUT", searchTerms: newSearchTerms });
     }
 
@@ -46,9 +44,9 @@ class UserInput extends React.Component {
                     <br/>
                     {/* Tags dropdown menu */}
                     <label>
-                        With tags:
-                        <select onChange={this.handleChange} name="tags">
-                            <option defaultValue value=""></option>
+                        With tag:
+                        <select defaultValue="" onChange={this.handleChange} name="tags">
+                            <option value=""></option>
                             <option value="story">Story</option>
                             {/* <option value="comment">Comment</option> */}
                             <option value="poll">Poll</option>
@@ -62,8 +60,8 @@ class UserInput extends React.Component {
                     {/* Number of comments dropdown menu. */}
                     <label>
                         Comments:   
-                        <select onChange={this.handleChange} name="numComments">
-                            <option defaultValue value="num_comments>=0"></option>
+                        <select defaultValue="num_comments>=0" onChange={this.handleChange} name="numComments">
+                            <option value="num_comments>=0"></option>
                             <option value="num_comments<=10">0-10</option>
                             <option value="num_comments>=10,num_comments<=50">10-50</option>
                             <option value="num_comments>=50,num_comments<=100">50-100</option>
@@ -76,8 +74,8 @@ class UserInput extends React.Component {
                     {/* Number of points dropdown menu. */}
                     <label>
                         Points:   
-                        <select onChange={this.handleChange} name="points">
-                            <option defaultValue value="points>=0"></option>
+                        <select defaultValue="points>=0" onChange={this.handleChange} name="points">
+                            <option value="points>=0"></option>
                             <option value="points>=0,points<=10">0-10</option>
                             <option value="points>=10,points<=50">10-50</option>
                             <option value="points>=50,points<=100">50-100</option>
@@ -89,19 +87,23 @@ class UserInput extends React.Component {
                     <br/>
                     {/* Radio buttons to choose how to sort results. */}
                     <label className="sortBy">
-                        Sorted by:
-                        <input value="search" name="sortBy" type="radio" defaultChecked/>
-                        Popularity
-                        <input value="search_by_date" name="sortBy" type="radio"/>
-                        Date
+                        Sort by:
+                        <div>
+                            <input value="search" name="sortBy" type="radio" defaultChecked/>
+                            Popularity
+                            <br/>
+                            <input value="search_by_date" name="sortBy" type="radio"/>
+                            Date
+                        </div>
                     </label>
                     <br/>
                     <label className="submit">
                         <input type="submit" value="Search"/>
                     </label>
                 </form>
+                <br/>
                 <div>
-                    <Results searchResults={this.state.searchResults} /> {/* props */} 
+                    <Results searchResults={this.state.searchResults} />
                 </div>
             </div>
         )

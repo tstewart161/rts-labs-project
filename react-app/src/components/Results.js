@@ -20,12 +20,12 @@ export class Results extends React.Component{
         return (
             <div>
                 <div>
-                    How many results to display:
+                    Show:
                     <select defaultValue="10" onChange={this.handleChange}>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
+                        <option value="5">5 results</option>
+                        <option value="10">10 results</option>
+                        <option value="25">25 results</option>
+                        <option value="50">50 results</option>
                     </select>
                 </div>
                 <div>
