@@ -6,7 +6,7 @@ const initialState = {
         points: 'points>=0',
         sortBy: 'search'
     }
-}
+};
   
 export function reducer(state = initialState, action) {
     switch(action.type) {
@@ -17,5 +17,5 @@ export function reducer(state = initialState, action) {
             }
         default:
         return state;
-    }
-}
+    };
+};

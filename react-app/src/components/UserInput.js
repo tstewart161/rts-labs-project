@@ -1,6 +1,5 @@
 import React from 'react';
 import { Results } from './Results';
-import { Welcome } from './Welcome';
 import { getSearchResults } from '../helperFunctions/getSearchResults.js';
 import { connect } from 'react-redux';
 import '../styles/UserInput.css';
@@ -8,7 +7,6 @@ import '../styles/UserInput.css';
 class UserInput extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             searchResults: []
         }
@@ -17,7 +15,7 @@ class UserInput extends React.Component {
     handleSubmit = (searchForm) => {
         searchForm.preventDefault();
         getSearchResults(this.props.searchTerms).then((results) => {
-            if (results.length === 0) {
+            if (results.length === 0 || typeof results === 'undefined') {
                 this.setState({
                     searchResults: ['no_results']
                 })
@@ -38,10 +36,6 @@ class UserInput extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <Welcome />
-                </div>
-                {/* Search form */}
                 <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
                     <label>
                         Search
@@ -53,9 +47,7 @@ class UserInput extends React.Component {
                         <select defaultValue="" onChange={this.handleChange} name="tags">
                             <option value=""></option>
                             <option value="story">Story</option>
-                            {/* <option value="comment">Comment</option> */}
                             <option value="poll">Poll</option>
-                            {/* <option value="pollopt">Poll Opt</option> */}
                             <option value="show_hn">Show HN</option>
                             <option value="ask_hn">Ask HN</option>
                             <option value="front_page">Front Page</option>
