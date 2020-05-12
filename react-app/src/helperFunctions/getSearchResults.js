@@ -5,15 +5,10 @@ export function getSearchResults(searchTerms) {
             + `&tags=${searchTerms.tags}`
             + `&numericFilters=${searchTerms.numComments},${searchTerms.points}`
             + `&hitsPerPage=50`; 
-
+            // 'https://cors-anywhere.herokuapp.com/'
+            // + 
     return (
-        fetch(URL, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            mode: 'cors'
-          })
+        fetch(URL)
         .then((response) => (response.json()))
         .then((data) => {
             return data.hits;

@@ -8,7 +8,7 @@ export function Welcome() {
             <h1>
                 Welcome to the RTS Hacker News feed!
             </h1>
-            <img alt="logo" src={logo}/>
+            <img alt="logo" src={logo} height="160" width="160"/>
             <p>
                 Search HN using the parameters below, choosing keywords 
                 from post title, url, and author, posts' tags, comment count,
