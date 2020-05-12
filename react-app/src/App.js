@@ -16,11 +16,11 @@ const initialState = {
 
 function reducer(state = initialState, action) {
   switch(action.type) {
-    // case "INPUT": 
-    //   let newSearchTerms = action.payload;
-    //   return {
-    //     searchTerms: newSearchTerms
-    //   }
+    case "INPUT": 
+      let newSearchTerms = action.searchTerms;
+      return {
+        searchTerms: newSearchTerms
+      }
     default:
       return state;
   }
@@ -29,7 +29,13 @@ function reducer(state = initialState, action) {
 const store = createStore(reducer);
 store.dispatch({
   type: "INPUT",
-  payload: {}
+  searchTerms: {
+    query: '',
+    tags: '',
+    numComments: 'num_comments>=0',
+    points: 'points>=0',
+    sortBy: 'search'
+  }
 })
 
 function App() {

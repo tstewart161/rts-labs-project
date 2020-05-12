@@ -8,13 +8,6 @@ class UserInput extends React.Component {
         super(props);
 
         this.state = {
-            // searchTerms: {
-            //     query: '',
-            //     tags: '',
-            //     numComments: 'num_comments>=0',
-            //     points: 'points>=0',
-            //     sortBy: 'search'
-            // },
             searchResults: []
         }
     }
@@ -30,12 +23,11 @@ class UserInput extends React.Component {
     }
 
     handleChange = (searchForm) => {
-        let newSearchTerms = this.props.searchTerms // props
+        let newSearchTerms = Object.assign({}, this.props.searchTerms);
         newSearchTerms[searchForm.target.name] = searchForm.target.value;
-        console.log(this.props.searchTerms)
 
-        // // Update the redux state with the new search terms.
-        // // this.props.dispatch({ type: "INPUT", payload: newSearchTerms });
+        // Update the redux state with the new search terms.
+        this.props.dispatch({ type: "INPUT", searchTerms: newSearchTerms });
     }
 
     render() {
