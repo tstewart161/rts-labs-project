@@ -3,7 +3,7 @@ import './App.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/store.js';
 import { Welcome } from './components/Welcome';
-import UserInput from './components/UserInput.js';
+import Search from './components/Search.js';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Welcome />
       </div>
       <Provider store={store}>
-        <UserInput searchTerms={{
+        <Search searchTerms={{
           query: '',
           tags: '',
           numComments: 'num_comments>=0',

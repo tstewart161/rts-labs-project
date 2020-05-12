@@ -4,7 +4,7 @@ import { getSearchResults } from '../helperFunctions/getSearchResults.js';
 import { connect } from 'react-redux';
 import '../styles/UserInput.css';
 
-class UserInput extends React.Component {
+class Search extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,7 +15,7 @@ class UserInput extends React.Component {
     handleSubmit = (searchForm) => {
         searchForm.preventDefault();
         getSearchResults(this.props.searchTerms).then((results) => {
-            if (results.length === 0 || typeof results === 'undefined') {
+            if (typeof results === 'undefined' || results.length === 0) {
                 this.setState({
                     searchResults: ['no_results']
                 })
@@ -105,4 +105,4 @@ const mapStateToProps = (state) => ({
     searchTerms: state.searchTerms
 });
 
-export default connect(mapStateToProps)(UserInput);
+export default connect(mapStateToProps)(Search);

@@ -7,7 +7,13 @@ export function getSearchResults(searchTerms) {
             + `&hitsPerPage=50`; 
 
     return (
-        fetch(URL)
+        fetch(URL, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            mode: 'cors'
+          })
         .then((response) => (response.json()))
         .then((data) => {
             return data.hits;
