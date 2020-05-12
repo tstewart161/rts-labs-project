@@ -26,7 +26,6 @@ class UserInput extends React.Component {
         let newSearchTerms = Object.assign({}, this.props.searchTerms);
         newSearchTerms[searchForm.target.name] = searchForm.target.value;
 
-        // Update the redux state with the new search terms.
         this.props.dispatch({ type: "INPUT", searchTerms: newSearchTerms });
     }
 
