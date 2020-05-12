@@ -17,6 +17,7 @@ class UserInput extends React.Component {
     handleSubmit = (searchForm) => {
         searchForm.preventDefault();
         getSearchResults(this.props.searchTerms).then((results) => {
+            console.log(results)
             this.setState({
                 searchResults: results
             })
@@ -41,7 +42,6 @@ class UserInput extends React.Component {
                         Search
                         <input type="text" name="query"/>
                     </label>
-                    <br/>
                     {/* Tags dropdown menu */}
                     <label>
                         With tag:
@@ -56,7 +56,6 @@ class UserInput extends React.Component {
                             <option value="front_page">Front Page</option>
                         </select>
                     </label>
-                    <br/>
                     {/* Number of comments dropdown menu. */}
                     <label>
                         Comments:   
@@ -70,7 +69,6 @@ class UserInput extends React.Component {
                             <option value="num_comments>=500">500+</option>
                         </select>
                     </label>
-                    <br/>
                     {/* Number of points dropdown menu. */}
                     <label>
                         Points:   
@@ -84,24 +82,20 @@ class UserInput extends React.Component {
                             <option value="points>=500">500+</option>
                         </select>
                     </label>
-                    <br/>
                     {/* Radio buttons to choose how to sort results. */}
-                    <label className="sortBy">
+                    <label>
                         Sort by:
-                        <div>
+                        <div className="sortBy">
                             <input value="search" name="sortBy" type="radio" defaultChecked/>
                             Popularity
-                            <br/>
                             <input value="search_by_date" name="sortBy" type="radio"/>
                             Date
                         </div>
                     </label>
-                    <br/>
                     <label className="submit">
                         <input type="submit" value="Search"/>
                     </label>
                 </form>
-                <br/>
                 <div>
                     <Results searchResults={this.state.searchResults} />
                 </div>

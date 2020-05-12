@@ -1,4 +1,6 @@
 import React from 'react';
+import { displayElement } from './displayElement.js';
+import { timeElapsedSincePosted } from './timeElapsedSincePosted.js';
 
 export function createResultsList(searchResults, numToDisplay) {
     if (typeof searchResults === 'undefined') {
@@ -11,15 +13,17 @@ export function createResultsList(searchResults, numToDisplay) {
         <ul>
             {results.map((item, i) => (
                 <li key={i}>
-                    <b>{item.title}</b>
+                    <b>{displayElement(item.title, "title")}</b>
                     <br/>
-                    <u>{item.url}</u>
+                    <u>{displayElement(item.url, "url")}</u>
                     <br/>
-                    Author: {item.author}
+                    Author: {displayElement(item.author, "author")}
                     <br/>
-                    Comments: {item.num_comments}
+                    Comments: {displayElement(item.num_comments, "comment number")}
                     <br/>
-                    Points: {item.points}
+                    Points: {displayElement(item.points, "point number")}
+                    <br/>
+                    {timeElapsedSincePosted(item.created_at)}
                     <br/> 
                     <br/>
                 </li>
