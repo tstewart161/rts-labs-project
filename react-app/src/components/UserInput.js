@@ -1,19 +1,13 @@
 import React from 'react';
-import { Results } from './Results';
+import Results from './Results';
 import { getSearchResults } from '../helperFunctions/getSearchResults.js';
+import { connect } from 'react-redux';
 
-export class UserInput extends React.Component {
+class UserInput extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            searchTerms: {
-                query: '',
-                tags: '',
-                numComments: 'num_comments>=0',
-                points: 'points>=0',
-                sortBy: 'search'
-            },
             searchResults: []
         }
     }
@@ -21,7 +15,7 @@ export class UserInput extends React.Component {
     handleSubmit = (searchForm) => {
         searchForm.preventDefault();
 
-        getSearchResults(this.state.searchTerms).then((results) => {
+        getSearchResults(this.props.searchTerms).then((results) => {
             this.setState({
                 searchResults: results
             })
@@ -29,12 +23,11 @@ export class UserInput extends React.Component {
     }
 
     handleChange = (searchForm) => {
-        let newSearchTerms = this.state.searchTerms
+        let newSearchTerms = Object.assign({}, this.props.searchTerms);
         newSearchTerms[searchForm.target.name] = searchForm.target.value;
 
-        this.setState({
-            searchTerms: newSearchTerms
-        })
+        // Update the redux state with the new search terms.
+        this.props.dispatch({ type: "INPUT", searchTerms: newSearchTerms });
     }
 
     render() {
@@ -104,9 +97,15 @@ export class UserInput extends React.Component {
                     </label>
                 </form>
                 <div>
-                    <Results searchResults={this.state.searchResults} />
+                    <Results searchResults={this.state.searchResults} /> {/* props */} 
                 </div>
             </div>
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    searchTerms: state.searchTerms
+});
+
+export default connect(mapStateToProps)(UserInput);

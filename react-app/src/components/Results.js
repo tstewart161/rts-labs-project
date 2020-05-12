@@ -1,7 +1,7 @@
 import React from 'react';
 import { createResultsList } from '../helperFunctions/createResultsList.js';
 
-export class Results extends React.Component{
+class Results extends React.Component{
     constructor(props) {
         super(props);
 
@@ -35,3 +35,5 @@ export class Results extends React.Component{
         )
     }
 }
+
+export default Results
