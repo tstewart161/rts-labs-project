@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function displayElement(element, elementType) {
+export function displayElement(element, elementName) {
     if (element !== "" && element !== null) {
         return <>{element}</>
     } else {
-        return `No ${elementType} for this post`
+        return `No ${elementName} for this post`
     }
 }

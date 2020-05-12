@@ -17,10 +17,15 @@ class UserInput extends React.Component {
     handleSubmit = (searchForm) => {
         searchForm.preventDefault();
         getSearchResults(this.props.searchTerms).then((results) => {
-            console.log(results)
-            this.setState({
-                searchResults: results
-            })
+            if (results.length === 0) {
+                this.setState({
+                    searchResults: ['no_results']
+                })
+            } else {
+                this.setState({
+                    searchResults: results
+                })
+            }
         })
     }
 

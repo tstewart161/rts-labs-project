@@ -14,6 +14,6 @@ export function getSearchResults(searchTerms) {
         return data.hits;
     })
     .catch((error) => {
-        console.log(`getSearchResults() failed: ${error}`); // Better error messages?
+        console.log(`getSearchResults() failed: ${error}`);
     })
 }

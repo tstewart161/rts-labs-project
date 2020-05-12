@@ -1,5 +1,6 @@
 import React from 'react';
 import { createResultsList } from '../helperFunctions/createResultsList.js';
+import '../styles/Results.css';
 
 export class Results extends React.Component{
     constructor(props) {
@@ -19,7 +20,7 @@ export class Results extends React.Component{
     render() {
         return (
             <div>
-                <div>
+                <div className="displayDropdown">
                     Show:
                     <select defaultValue="10" onChange={this.handleChange}>
                         <option value="5">5 results</option>
@@ -28,7 +29,7 @@ export class Results extends React.Component{
                         <option value="50">50 results</option>
                     </select>
                 </div>
-                <div>
+                <div className="results">
                     {createResultsList(this.props.searchResults, this.state.numToDisplay)}
                 </div>
             </div>
