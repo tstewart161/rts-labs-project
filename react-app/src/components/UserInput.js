@@ -3,6 +3,7 @@ import { Results } from './Results';
 import { Welcome } from './Welcome';
 import { getSearchResults } from '../helperFunctions/getSearchResults.js';
 import { connect } from 'react-redux';
+import '../styles/UserInput.css';
 
 class UserInput extends React.Component {
     constructor(props) {
