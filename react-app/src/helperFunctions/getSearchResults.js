@@ -5,7 +5,6 @@ export function getSearchResults(searchTerms) {
         + `&tags=${searchTerms.tags}`
         + `&numericFilters=${searchTerms.numComments},${searchTerms.points}`
         + `&hitsPerPage=50`; 
-        // This has to work with multiple tags AND/OR-ing?
         // Make sure this is error-free.
         // More error catching and logging?
     console.log(url);
