@@ -1,5 +1,6 @@
 import React from 'react';
-import Results from './Results';
+import { Results } from './Results';
+import { Welcome } from './Welcome';
 import { getSearchResults } from '../helperFunctions/getSearchResults.js';
 import { connect } from 'react-redux';
 
@@ -23,7 +24,7 @@ class UserInput extends React.Component {
     }
 
     handleChange = (searchForm) => {
-        let newSearchTerms = Object.assign({}, this.props.searchTerms);
+        let newSearchTerms = Object.assign({}, this.props.searchTerms); // Don't mutate props!
         newSearchTerms[searchForm.target.name] = searchForm.target.value;
 
         this.props.dispatch({ type: "INPUT", searchTerms: newSearchTerms });
@@ -32,6 +33,9 @@ class UserInput extends React.Component {
     render() {
         return (
             <div>
+                <div>
+                    <Welcome />
+                </div>
                 {/* Search form */}
                 <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
                     <label>
